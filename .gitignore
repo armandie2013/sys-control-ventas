@@ -1,0 +1,38 @@
+# Dependencias
+/node_modules/
+
+# Variables de entorno
+.env
+.env.local
+.env.*.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+logs/
+*.log
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Configuraciones de editor
+.vscode/
+.idea/
+
+# Archivos temporales
+*.tmp
+*.temp
+
+# Salidas de build (si en un futuro usás React/Next dentro del mismo repo)
+dist/
+build/
+
+# Subidas (si en algún módulo usás multer → lo evitamos en Git)
+uploads/
+
+# Cache
+.cache/
+.npm/

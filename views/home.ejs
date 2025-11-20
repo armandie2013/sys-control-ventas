@@ -1,0 +1,31 @@
+
+
+<section class="bg-white rounded-2xl shadow-md p-6">
+  <h1 class="text-2xl font-bold mb-4">Panel principal</h1>
+
+  <% if (!usuario) { %>
+    <p class="mb-4 text-gray-700">
+      Para comenzar, iniciá sesión o registrá el primer usuario.
+    </p>
+    <div class="flex gap-3">
+      <a href="/usuarios/login"
+         class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700">
+        Iniciar sesión
+      </a>
+      <a href="/usuarios/registrar"
+         class="bg-green-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-green-700">
+        Registrarse
+      </a>
+    </div>
+  <% } else { %>
+    <p class="mb-4 text-gray-700">
+      Bienvenido, <strong><%= usuario.nombre %></strong>. Desde acá vas a poder gestionar:
+    </p>
+    <ul class="list-disc list-inside text-gray-700 space-y-1">
+      <li>Usuarios del sistema</li>
+      <li>Proveedores / Clientes y cuentas corrientes</li>
+      <li>Productos y stock</li>
+      <li>Notas de pedido y comprobantes</li>
+    </ul>
+  <% } %>
+</section>

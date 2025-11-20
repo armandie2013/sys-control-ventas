@@ -1,0 +1,36 @@
+<nav class="bg-gray-900 text-white">
+  <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+    <a href="/" class="font-semibold text-sm sm:text-base">
+      Mini Sistema Stock & Facturación
+    </a>
+
+    <div class="flex items-center gap-3">
+      <% if (usuario) { %>
+        <span class="text-xs sm:text-sm">
+          Hola, <%= usuario.nombre %> <%= usuario.apellido %> (<%= usuario.rol %>)
+        </span>
+
+        <a href="/usuarios/dashboard"
+           class="text-xs sm:text-sm bg-blue-600 px-2 py-1 rounded hover:bg-blue-700">
+          Usuarios
+        </a>
+
+        <form action="/usuarios/logout" method="POST">
+          <button type="submit"
+                  class="text-xs sm:text-sm bg-red-600 px-2 py-1 rounded hover:bg-red-700">
+            Cerrar sesión
+          </button>
+        </form>
+      <% } else { %>
+        <a href="/usuarios/login"
+           class="text-xs sm:text-sm bg-blue-600 px-2 py-1 rounded hover:bg-blue-700">
+          Iniciar sesión
+        </a>
+        <a href="/usuarios/registrar"
+           class="text-xs sm:text-sm bg-green-600 px-2 py-1 rounded hover:bg-green-700">
+          Registrarse
+        </a>
+      <% } %>
+    </div>
+  </div>
+</nav>
