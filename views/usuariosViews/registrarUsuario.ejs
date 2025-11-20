@@ -1,55 +1,68 @@
+<section class="max-w-md mx-auto bg-white/80 backdrop-blur rounded-2xl shadow-md border border-gray-200 p-6 sm:p-8 mt-6">
 
-
-<section class="max-w-md mx-auto bg-white rounded-2xl shadow-md p-6">
-  <h1 class="text-xl font-bold mb-4">Registrar usuario</h1>
+  <header class="mb-6">
+    <h1 class="text-2xl font-semibold text-gray-900">Crear cuenta</h1>
+    <p class="text-sm text-gray-500 mt-1">
+      Registrá un nuevo usuario para acceder al sistema.
+    </p>
+  </header>
 
   <% if (errores && errores.length > 0) { %>
-    <div class="mb-4 bg-red-100 text-red-700 text-sm rounded p-3">
-      <ul class="list-disc list-inside">
+    <div class="mb-4 bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl p-3">
+      <ul class="space-y-1">
         <% errores.forEach(e => { %>
-          <li><%= e.msg %></li>
+          <li>• <%= e.msg %></li>
         <% }) %>
       </ul>
     </div>
   <% } %>
 
-  <form action="/usuarios/registrar" method="POST" class="space-y-3">
+  <form action="/usuarios/registrar" method="POST" class="space-y-4">
+
     <div>
-      <label class="block text-sm font-medium mb-1">Nombre</label>
+      <label class="block text-sm font-medium text-gray-700 mb-1">Nombre</label>
       <input type="text" name="nombre" required
              value="<%= oldData.nombre || '' %>"
-             class="w-full border rounded px-3 py-2 text-sm">
+             class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-gray-400">
     </div>
 
     <div>
-      <label class="block text-sm font-medium mb-1">Apellido</label>
+      <label class="block text-sm font-medium text-gray-700 mb-1">Apellido</label>
       <input type="text" name="apellido" required
              value="<%= oldData.apellido || '' %>"
-             class="w-full border rounded px-3 py-2 text-sm">
+             class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-gray-400">
     </div>
 
     <div>
-      <label class="block text-sm font-medium mb-1">Email</label>
+      <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
       <input type="email" name="email" required
              value="<%= oldData.email || '' %>"
-             class="w-full border rounded px-3 py-2 text-sm">
+             class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-gray-400">
     </div>
 
     <div>
-      <label class="block text-sm font-medium mb-1">Contraseña</label>
+      <label class="block text-sm font-medium text-gray-700 mb-1">Contraseña</label>
       <input type="password" name="password" required
-             class="w-full border rounded px-3 py-2 text-sm">
+             class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-gray-400">
     </div>
 
     <div>
-      <label class="block text-sm font-medium mb-1">Repetir contraseña</label>
+      <label class="block text-sm font-medium text-gray-700 mb-1">Repetir contraseña</label>
       <input type="password" name="password2" required
-             class="w-full border rounded px-3 py-2 text-sm">
+             class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-gray-400">
     </div>
 
     <button type="submit"
-            class="w-full bg-green-600 text-white py-2 rounded-lg text-sm font-semibold hover:bg-green-700">
+            class="w-full bg-gray-900 text-white py-2.5 rounded-lg text-sm font-medium hover:bg-black transition">
       Crear usuario
     </button>
   </form>
+
+  <p class="text-xs text-gray-500 mt-4 text-center">
+    ¿Ya tenés una cuenta?
+    <a href="/usuarios/login" class="text-gray-700 font-medium hover:underline">
+      Iniciar sesión
+    </a>
+  </p>
+
 </section>

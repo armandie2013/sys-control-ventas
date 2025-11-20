@@ -1,31 +1,94 @@
+<section class="max-w-3xl mx-auto bg-white/80 backdrop-blur rounded-2xl shadow-md border border-gray-200 p-6 sm:p-8">
+  <header class="flex items-start justify-between gap-2 mb-6">
+    <div>
+      <h1 class="text-2xl font-semibold text-gray-900">Panel principal</h1>
+      <% if (usuario) { %>
+        <p class="text-sm text-gray-500 mt-1">
+          Bienvenido, <span class="font-medium"><%= usuario.nombre %> <%= usuario.apellido %></span>.
+        </p>
+      <% } else { %>
+        <p class="text-sm text-gray-500 mt-1">
+          Configurá el sistema creando el primer usuario administrador.
+        </p>
+      <% } %>
+    </div>
 
-
-<section class="bg-white rounded-2xl shadow-md p-6">
-  <h1 class="text-2xl font-bold mb-4">Panel principal</h1>
+    <% if (usuario) { %>
+      <span class="inline-flex items-center rounded-full border border-emerald-100 bg-emerald-50 px-3 py-1 text-[11px] font-medium text-emerald-700">
+        En línea
+      </span>
+    <% } else { %>
+      <span class="inline-flex items-center rounded-full border border-amber-100 bg-amber-50 px-3 py-1 text-[11px] font-medium text-amber-700">
+        Configuración inicial
+      </span>
+    <% } %>
+  </header>
 
   <% if (!usuario) { %>
-    <p class="mb-4 text-gray-700">
-      Para comenzar, iniciá sesión o registrá el primer usuario.
-    </p>
-    <div class="flex gap-3">
-      <a href="/usuarios/login"
-         class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700">
-        Iniciar sesión
-      </a>
-      <a href="/usuarios/registrar"
-         class="bg-green-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-green-700">
-        Registrarse
-      </a>
+    <div class="space-y-4">
+      <p class="text-sm text-gray-700">
+        Para comenzar, iniciá sesión o registrá el primer usuario. Ese primer usuario será administrador del sistema.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-3">
+        <a href="/usuarios/login"
+           class="flex-1 inline-flex items-center justify-center rounded-lg bg-gray-900 text-white text-sm font-medium px-4 py-2.5 hover:bg-black transition">
+          Iniciar sesión
+        </a>
+        <a href="/usuarios/registrar"
+           class="flex-1 inline-flex items-center justify-center rounded-lg border border-gray-300 text-gray-800 text-sm font-medium px-4 py-2.5 hover:bg-gray-50 transition">
+          Registrarse
+        </a>
+      </div>
     </div>
   <% } else { %>
-    <p class="mb-4 text-gray-700">
-      Bienvenido, <strong><%= usuario.nombre %></strong>. Desde acá vas a poder gestionar:
-    </p>
-    <ul class="list-disc list-inside text-gray-700 space-y-1">
-      <li>Usuarios del sistema</li>
-      <li>Proveedores / Clientes y cuentas corrientes</li>
-      <li>Productos y stock</li>
-      <li>Notas de pedido y comprobantes</li>
-    </ul>
+    <div class="space-y-4">
+      <p class="text-sm text-gray-700">
+        Desde este panel vas a poder gestionar los módulos principales del sistema:
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <a href="/usuarios/dashboard"
+           class="group rounded-xl border border-gray-200 bg-gray-50/60 px-4 py-3 text-sm hover:border-gray-300 hover:bg-white transition flex items-start gap-3">
+          <div class="mt-0.5 text-lg">👤</div>
+          <div>
+            <h2 class="font-medium text-gray-900 group-hover:text-gray-950">Usuarios del sistema</h2>
+            <p class="text-xs text-gray-500 mt-1">
+              Crear, editar, activar o desactivar usuarios y controlar accesos.
+            </p>
+          </div>
+        </a>
+
+        <div class="rounded-xl border border-dashed border-gray-200 px-4 py-3 text-sm flex items-start gap-3 opacity-80">
+          <div class="mt-0.5 text-lg">🤝</div>
+          <div>
+            <h2 class="font-medium text-gray-900">Proveedores / Clientes</h2>
+            <p class="text-xs text-gray-500 mt-1">
+              Cuentas corrientes, saldos e historial de movimientos. (Próximo módulo)
+            </p>
+          </div>
+        </div>
+
+        <div class="rounded-xl border border-dashed border-gray-200 px-4 py-3 text-sm flex items-start gap-3 opacity-80">
+          <div class="mt-0.5 text-lg">📦</div>
+          <div>
+            <h2 class="font-medium text-gray-900">Productos y stock</h2>
+            <p class="text-xs text-gray-500 mt-1">
+              Altas de productos, ajustes de stock e historial de movimientos. (Próximo módulo)
+            </p>
+          </div>
+        </div>
+
+        <div class="rounded-xl border border-dashed border-gray-200 px-4 py-3 text-sm flex items-start gap-3 opacity-80">
+          <div class="mt-0.5 text-lg">🧾</div>
+          <div>
+            <h2 class="font-medium text-gray-900">Notas de pedido y comprobantes</h2>
+            <p class="text-xs text-gray-500 mt-1">
+              Generación de notas y PDF para pedidos y pagos. (Próximo módulo)
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
   <% } %>
 </section>
