@@ -1,7 +1,13 @@
 // controllers/usuariosController.mjs
 import { validationResult } from "express-validator";
 import bcrypt from "bcrypt";
-import { registrarNuevoUsuario, buscarUsuarioPorEmail } from "../services/usuarioService.mjs";
+import { registrarNuevoUsuario,
+    buscarUsuarioPorEmail, 
+    obtenerTodosLosUsuarios, 
+    obtenerUsuarioPorId, 
+    actualizarUsuario, 
+    cambiarEstadoUsuario, 
+    eliminarUsuario } from "../services/usuarioService.mjs";
 import Usuario from "../models/Usuario.mjs";
 
 export const mostrarFormularioRegistro = (req, res) => {
@@ -118,11 +124,72 @@ export const cerrarSesion = (req, res) => {
   });
 };
 
+
+
+// Dashboard (LISTADO)
 export const mostrarDashboardUsuarios = async (req, res) => {
-  const usuarios = await Usuario.find().sort({ createdAt: -1 });
+  const usuarios = await Usuario.find()
+    .sort({ rol: 1, createdAt: -1 });
 
   res.render("usuariosViews/dashboardUsuarios", {
-    title: "Dashboard de usuarios",
+    title: "Usuarios",
     usuarios,
   });
+};
+
+// FORM EDITAR
+export const mostrarFormularioEditar = async (req, res) => {
+  const usuario = await obtenerUsuarioPorId(req.params.id);
+
+  if (!usuario) {
+    return res.status(404).send("Usuario no encontrado");
+  }
+
+  res.render("usuariosViews/editarUsuario", {
+    title: "Editar usuario",
+    usuario,
+    errores: [],
+  });
+};
+
+// PROCESAR EDICIÓN
+export const procesarEdicion = async (req, res) => {
+  const errors = validationResult(req);
+  const id = req.params.id;
+
+  if (!errors.isEmpty()) {
+    const usuario = await obtenerUsuarioPorId(id);
+    return res.status(400).render("usuariosViews/editarUsuario", {
+      title: "Editar usuario",
+      usuario,
+      errores: errors.array(),
+    });
+  }
+
+  try {
+    await actualizarUsuario(id, req.body);
+    return res.redirect("/usuarios/dashboard");
+  } catch (error) {
+    return res.status(500).send(error.message);
+  }
+};
+
+// ACTIVAR / DESACTIVAR
+export const toggleEstadoUsuario = async (req, res) => {
+  try {
+    await cambiarEstadoUsuario(req.params.id);
+    return res.redirect("/usuarios/dashboard");
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+};
+
+// ELIMINAR
+export const borrarUsuario = async (req, res) => {
+  try {
+    await eliminarUsuario(req.params.id);
+    return res.redirect("/usuarios/dashboard");
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
 };
