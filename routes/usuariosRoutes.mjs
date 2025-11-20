@@ -7,10 +7,15 @@ import {
   procesarLogin,
   cerrarSesion,
   mostrarDashboardUsuarios,
+  mostrarFormularioEditar,
+  procesarEdicion,
+  toggleEstadoUsuario,
+  borrarUsuario,
 } from "../controllers/usuariosController.mjs";
 
 import { validarRegistroUsuario, validarLoginUsuario } from "../middlewares/validacionesUsuario.mjs";
 import { verificarSesion } from "../middlewares/verificarSesion.mjs";
+import { verificarAdmin } from "../middlewares/verificarAdmin.mjs";
 
 const router = express.Router();
 
@@ -25,7 +30,18 @@ router.post("/login", validarLoginUsuario, procesarLogin);
 // Logout
 router.post("/logout", verificarSesion, cerrarSesion);
 
-// Dashboard (protegido)
-router.get("/dashboard", verificarSesion, mostrarDashboardUsuarios);
+// Dashboard
+router.get("/dashboard", verificarSesion, verificarAdmin, mostrarDashboardUsuarios);
+
+// Editar
+router.get("/editar/:id", verificarSesion, verificarAdmin, mostrarFormularioEditar);
+router.put("/editar/:id", verificarSesion, verificarAdmin, procesarEdicion);
+
+// Activar / desactivar
+router.patch("/estado/:id", verificarSesion, verificarAdmin, toggleEstadoUsuario);
+
+// Eliminar
+router.delete("/eliminar/:id", verificarSesion, verificarAdmin, borrarUsuario);
+
 
 export default router;

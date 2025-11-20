@@ -1,0 +1,53 @@
+<section class="max-w-lg mx-auto bg-white rounded-2xl shadow-md p-6">
+  <h1 class="text-xl font-bold mb-4">Editar usuario</h1>
+
+  <% if (errores.length > 0) { %>
+    <div class="bg-red-100 text-red-700 p-3 rounded mb-4 text-sm">
+      <ul>
+        <% errores.forEach(e => { %>
+          <li><%= e.msg %></li>
+        <% }) %>
+      </ul>
+    </div>
+  <% } %>
+
+  <form action="/usuarios/editar/<%= usuario._id %>?_method=PUT" method="POST" class="space-y-3">
+
+    <div>
+      <label class="block text-sm font-medium mb-1">Nombre</label>
+      <input type="text" name="nombre" required value="<%= usuario.nombre %>"
+             class="w-full border rounded px-3 py-2 text-sm" />
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium mb-1">Apellido</label>
+      <input type="text" name="apellido" required value="<%= usuario.apellido %>"
+             class="w-full border rounded px-3 py-2 text-sm" />
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium mb-1">Email</label>
+      <input type="email" name="email" required value="<%= usuario.email %>"
+             class="w-full border rounded px-3 py-2 text-sm" />
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium mb-1">Rol</label>
+      <select name="rol" class="w-full border px-3 py-2 rounded text-sm">
+        <option value="admin" <%= usuario.rol === 'admin' ? 'selected' : '' %>>Admin</option>
+        <option value="usuario" <%= usuario.rol === 'usuario' ? 'selected' : '' %>>Usuario</option>
+      </select>
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium mb-1">Nueva contraseña (opcional)</label>
+      <input type="password" name="password"
+             class="w-full border rounded px-3 py-2 text-sm" />
+    </div>
+
+    <button class="bg-green-600 text-white w-full py-2 rounded-lg text-sm hover:bg-green-700">
+      Guardar cambios
+    </button>
+
+  </form>
+</section>
